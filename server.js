@@ -17,14 +17,20 @@ try {
     var httpsServer = HTTPS.createServer(httpsConfig, app)
     // 443 is the default port for HTTPS traffic
     httpsServer.listen(443)
+    var httpApp = express()
+    httpApp.use(function(req, res, next){
+        res.redirect('https://thepasswordisdragons.com' + req.url)
+    })
+    httpApp.listen(80)
 }
 catch(e){
     console.log(e)
     console.log('could not start HTTPS server')
+    var httpServer = HTTP.createServer(app)
+    httpServer.listen(80)
 }
 
 
-var httpServer = HTTP.createServer(app)
 
-httpServer.listen(80)
+
 
